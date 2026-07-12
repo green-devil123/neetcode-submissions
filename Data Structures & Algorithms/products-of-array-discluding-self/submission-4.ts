@@ -1,0 +1,38 @@
+class Solution {
+    /**
+     * @param {number[]} nums
+     * @return {number[]}
+     */
+    productExceptSelf(nums: number[]): number[] {
+        // const prefix = new Array(nums.length).fill(1);
+        // const suffix = new Array(nums.length).fill(1);
+
+        // for(let i=1;i<nums.length;i++){
+        //     prefix[i] = prefix[i-1]*nums[i-1];
+        // }
+
+        // for(let i=nums.length-2;i>=0;i--){
+        //     suffix[i] = suffix[i+1]*nums[i+1];
+        // }
+
+        // for(let i=0;i<nums.length;i++){
+        //     prefix[i] = prefix[i]*suffix[i];
+        // }
+        // return prefix;
+
+        const result:number[] = new Array(nums.length).fill(1);
+        let prefix = 1;
+        for(let i=0;i<nums.length;i++){
+            result[i] = prefix;
+            prefix *= nums[i];
+        }
+
+        let suffix = 1;
+        for(let j=nums.length-1;j>=0;j--){
+            result[j] = suffix*result[j];
+            suffix *= nums[j];
+        }
+
+        return result;
+    }
+}
